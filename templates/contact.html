@@ -1,0 +1,32 @@
+<!-- templates/contact.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    #map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div class="container">
+    <h1 class="text-center">Контакты ElectroShop</h1>
+    <p class="text-center">Адрес: Театральный пр-д 5</p>
+    <p class="text-center">Телефон: 8 (800) 555 35 35</p>
+    <div id="map-container">
+        <iframe id="map"
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Aecaa54c665b8da6ef9206077deb6a890eef78e00b9b1dc8c7d2acebfac28d8ef&amp;source=constructor"
+            width="1130" height="570" frameborder="0"></iframe>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}

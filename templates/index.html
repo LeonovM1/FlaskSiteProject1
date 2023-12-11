@@ -1,0 +1,90 @@
+<!-- templates/index.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Предполагается, что у вас есть переменная products, переданная в шаблон -->
+    {% for product in products %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <img src="data:image/jpeg;base64,{{ product.image_url }}" alt="{{ product.name }}"
+                data-product-id="{{ product.id }}">
+            <div class="card-body">
+                <p class="card-text">{{ product.name }}</p>
+                <p class="product-category" style="display: none;">{{ product.category }}</p>
+                <p class="product-id" style="display: none;">{{ product.id }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-show-description"
+                            data-description="{{ product.description }}">Просмотр</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">В корзину</button>
+                    </div>
+                    <small class="text-muted">{{ product.price }} руб.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if loop.index % 3 == 0 %}
+</div>
+<div class="row">
+    {% endif %}
+    {% endfor %}
+</div>
+
+<!-- Модальное окно -->
+<div class="modal" id="productModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productCategory"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="productImage" class="img-fluid" alt="Product Image">
+                        <p id="productId" style="display: none;"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 id="productTitle"></h4>
+                        <p id="productDescription"></p>
+                        <button type="button" class="btn btn-primary">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript для отображения описания товара в модальном окне
+    $(document).ready(function () {
+        $('.btn-show-description').click(function () {
+            var title = $(this).closest('.card').find('.card-text').text();
+            var category = $(this).closest('.card').find('.product-category').text();
+            var description = $(this).data('description');
+            var image = $(this).closest('.card').find('img').attr('src');
+            var id = $(this).closest('.card').find('.product-id').text();
+
+
+            $('#productTitle').text(title);
+            $('#productCategory').text(category);
+            $('#productDescription').text(description);
+            $('#productImage').attr('src', image);
+            $('#productId').text(id);
+            $('#productModal').modal('show');
+        });
+
+        $(document).on('click', '#productImage', function () {
+            var productId = $('#productId').text();
+            if (productId) {
+                window.open('/get-product-image?productId=' + productId, '_blank');
+            }
+        });
+    });
+</script>
+
+{% endblock %}

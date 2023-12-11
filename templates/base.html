@@ -1,0 +1,99 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-магазин</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Подключение Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img id="top" src="{{ url_for('static', filename='img/shopIcon.png') }}" alt="Логотип" style="height: 45px;">
+                Интернет-магазин
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-light mr-2" href="{{ url_for('index') }}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light mr-2" href="{{ url_for('contact') }}">Контакты</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="btn btn-primary mr-2" href="{{ url_for('logout') }}">Выйти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary mr-2" href="{{ url_for('login') }}">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary mr-2" href="{{ url_for('register') }}">Регистрация</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('cart') }}">
+                            <img src="{{ url_for('static', filename='img/iconCart.png') }}" alt="Корзина"
+                                style="height: 30px;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+        {% block content %}
+        <!-- Содержимое страницы будет здесь -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a class="btn btn-light" href="{{ url_for('index') }}">Главная</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="btn btn-light" href="{{ url_for('contact') }}">Контакты</a>
+                </li>
+            </ul>
+        </div>
+        <div class="container text-right">
+            <div>
+                <a href="#top">
+                    <i class="fas fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ваши скрипты -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
