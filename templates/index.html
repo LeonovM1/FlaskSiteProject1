@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
+<div class="row mt-4">
     <!-- Предполагается, что у вас есть переменная products, переданная в шаблон -->
     {% for product in products %}
     <div class="col-md-4">
@@ -18,7 +18,8 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary btn-show-description"
                             data-description="{{ product.description }}">Просмотр</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">В корзину</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-add-to-cart">В
+                            корзину</button>
                     </div>
                     <small class="text-muted">{{ product.price }} руб.</small>
                 </div>
@@ -51,7 +52,7 @@
                     <div class="col-md-6">
                         <h4 id="productTitle"></h4>
                         <p id="productDescription"></p>
-                        <button type="button" class="btn btn-primary">В корзину</button>
+                        <button type="button" class="btn btn-primary btn-add-to-cart-modal">В корзину</button>
                     </div>
                 </div>
             </div>
@@ -83,6 +84,44 @@
             if (productId) {
                 window.open('/get-product-image?productId=' + productId, '_blank');
             }
+        });
+
+        // Обработчик событий для кнопки "В корзину" в модальном окне
+        $('#productModal .btn-add-to-cart-modal').click(function () {
+            var productId = $('#productId').text();
+            $.post('/add_to_cart/' + productId)
+                .done(function () {
+                    alert('Продукт добавлен в корзину');
+                })
+                .fail(function (xhr) {
+                    if (xhr.status == 401) {
+                        var message = btoa(unescape(encodeURIComponent("Вы должны войти в систему, чтобы добавить товар в корзину.")));
+                        document.cookie = "message=" + message + "; path=/";
+                        window.location.href = "/login";
+                    } else {
+                        alert('Ошибка при добавлении продукта в корзину');
+                    }
+                });
+        });
+
+        // Обработчик событий для кнопки "В корзину" на главном экране
+        $('.btn-add-to-cart').click(function () {
+            var productId = $(this).closest('.card').find('.product-id').text();
+            $.post('/add_to_cart/' + productId)
+                .done(function () {
+                    alert('Продукт добавлен в корзину');
+                })
+                .fail(function (xhr) {
+                    if (xhr.status == 401) {
+                        // Установка cookie с сообщением для пользователя
+                        // Кодирование сообщения в UTF-8 и преобразование в base64
+                        var message = btoa(unescape(encodeURIComponent("Вы должны войти в систему, чтобы добавить товар в корзину.")));
+                        document.cookie = "message=" + message + "; path=/";                        // Перенаправление на страницу входа
+                        window.location.href = "/login";
+                    } else {
+                        alert('Ошибка при добавлении продукта в корзину');
+                    }
+                });
         });
     });
 </script>

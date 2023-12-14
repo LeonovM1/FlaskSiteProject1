@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Подключение Bootstrap JS -->
@@ -43,8 +43,15 @@
                         <a class="btn btn-light mr-2" href="{{ url_for('contact') }}">Контакты</a>
                     </li>
                     {% if current_user.is_authenticated %}
+                    
                         <li class="nav-item">
                             <a class="btn btn-primary mr-2" href="{{ url_for('logout') }}">Выйти</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('account') }}">
+                                <img src="{{ url_for('static', filename='img/iconPerson4.png') }}" alt="Корзина"
+                                    style="height: 30px; width: 36px;">
+                            </a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -54,12 +61,12 @@
                             <a class="btn btn-primary mr-2" href="{{ url_for('register') }}">Регистрация</a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('cart') }}">
-                            <img src="{{ url_for('static', filename='img/iconCart.png') }}" alt="Корзина"
-                                style="height: 30px;">
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('cart') }}">
+                                <img src="{{ url_for('static', filename='img/iconCart.png') }}" alt="Корзина"
+                                    style="height: 30px;">
+                            </a>
+                        </li>
                 </ul>
             </div>
         </nav>

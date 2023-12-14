@@ -1,10 +1,42 @@
 <!-- templates/cart.html -->
-
-
 {% extends "base.html" %}
 
 {% block content %}
-
-
-
+<h2 class="mb-3">Ваша корзина</h2>
+{% if cart_items %}
+<table class="table table-bordered w-100">
+    <tr>
+        <th>Изображение</th>
+        <th>Название продукта</th>
+        <th>Количество</th>
+        <th>Цена за единицу</th>
+        <th>Общая цена</th>
+    </tr>
+    {% set ns = namespace(total=0) %}
+    {% for item in cart_items %}
+    <tr>
+        <td><img src="data:image/jpeg;base64,{{ item.product.image_url }}" alt="{{ item.product.name }}" width="50">
+        </td>
+        <td>{{ item.product.name }} </td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.price }} руб.</td>
+        <td>{{ item.product.price * item.quantity }} руб.</td>
+    </tr>
+    {% set ns.total = ns.total + item.product.price * item.quantity %}
+    {% endfor %}
+    <tr>
+        <td colspan="4" class="text-right">Общая сумма:</td>
+        <td>{{ ns.total|round(2) }} руб.</td>
+    </tr>
+</table>
+<div class="text-right">
+    <form action="{{ url_for('clear_cart') }}" method="post">
+        <button type="submit" class="btn btn-outline-primary">Очистить корзину</button>
+    </form>
+</div>
+{% else %}
+<div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
+    <h4>Сейчас корзина пуста, добавьте в нее товары.</h4>
+</div>
+{% endif %}
 {% endblock %}

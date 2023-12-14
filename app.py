@@ -1,9 +1,9 @@
 import base64
-from flask import Flask, render_template, url_for, flash, redirect, send_file, request, g
+from flask import Flask, render_template, url_for, flash, redirect, send_file, request, g, jsonify, make_response
 from flask_migrate import Migrate
 from forms import RegistrationForm, LoginForm, UpdateUserForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Category, Product
+from models import db, User, Category, Product, CartProduct, Cart
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 import io
 import requests
@@ -15,8 +15,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1111@localhost/Fl
 db.init_app(app)
 migrate = Migrate(app, db)
 
-login_manager = LoginManager(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 login_manager.login_view = 'login'
+login_manager.login_message = 'Вы должны войти в систему'
+login_manager.login_message_category = 'warning'
 #Функция представления, которая обрабатывает вход в систему
 
 @login_manager.user_loader
@@ -37,24 +40,23 @@ def hello_world():
     User.query.filter_by(id=1).delete()
     db.session.commit()
 
-#Главная страница
-from flask_login import current_user  # Добавьте этот импорт
-
-
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
 @app.context_processor
 def inject_user():
     user = current_user
     return dict(user=user)
 
+
 @app.before_request
 def before_request():
     g.user = current_user
+
 
 @app.route('/index')
 def index():
@@ -78,10 +80,6 @@ def index():
 def contact():
     return render_template('contact.html')
 
-#Страница корзины
-@app.route('/cart')
-def cart():
-    return render_template('cart.html')
 
 # Регистрация
 @app.route("/register", methods=['GET', 'POST'])
@@ -97,22 +95,26 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 #Вход в систему
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    message = request.cookies.get('message')
+    if message:
+        message = base64.b64decode(message).decode('utf-8')
+        flash(message, 'warning')
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
-                return redirect(url_for('account'))
+            login_user(user, remember=form.remember.data)
+            response = make_response(redirect(url_for('index')))
+            response.set_cookie('message', '', expires=0)
+            return response
         else:
             flash('Авторизация невозможна! Пожалуйста, проверьте имя пользователя и\или пароль!', 'danger')
     return render_template('login.html', title='Login', form=form, user=current_user)
@@ -151,6 +153,7 @@ def get_product_by_id(id):
     else:
         return None
 
+
 @app.route('/get-product-image')
 def get_product_image():
     product_id = request.args.get('productId')
@@ -160,6 +163,52 @@ def get_product_image():
         return send_file(io.BytesIO(image_data), mimetype='image/jpeg')
     else:
         return 'Изображение не найдено'
+    
+
+@app.route('/add_to_cart/<int:product_id>', methods=['POST'])
+def add_to_cart(product_id):
+    if not current_user.is_authenticated:
+        response = jsonify({'message': 'Вы должны войти в систему, чтобы добавить товар в корзину.'})
+        response.status_code = 401
+        return response
+    product = Product.query.get_or_404(product_id)
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if not cart:
+        cart = Cart(user_id=current_user.id)
+        db.session.add(cart)
+    cart_item = CartProduct.query.filter_by(cart_id=cart.id, product_id=product.id).first()
+    if cart_item:
+        cart_item.quantity += 1
+    else:
+        cart_item = CartProduct(cart_id=cart.id, product_id=product.id, quantity=1)
+        db.session.add(cart_item)
+    db.session.commit()
+    return redirect(url_for('cart'))
+
+
+#Страница корзины
+@app.route('/cart')
+@login_required
+def cart():
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if cart:
+        cart_items = CartProduct.query.filter_by(cart_id=cart.id).all()
+    else:
+        cart_items = []
+    return render_template('cart.html', cart_items=cart_items)
+
+
+@app.route('/clear_cart', methods=['POST'])
+def clear_cart():
+    if not current_user.is_authenticated:
+        response = jsonify({'message': 'Вы должны войти в систему, чтобы добавить товар в корзину.'})
+        response.status_code = 401
+        return response
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if cart:
+        CartProduct.query.filter_by(cart_id=cart.id).delete()
+        db.session.commit()
+    return redirect(url_for('cart'))
 
 """
 

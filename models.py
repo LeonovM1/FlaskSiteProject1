@@ -55,6 +55,8 @@ class CartProduct(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Product.id'))
     quantity = db.Column(db.Integer, nullable=False)
 
+    product = db.relationship('Product', backref='cart_products')
+
 class Order(db.Model):
     __tablename__ = 'Order'
     __table_args__ = {'schema': 'FlaskSite'}
