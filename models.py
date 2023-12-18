@@ -36,7 +36,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Category.id'), nullable=False) 
+    category_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Category.id'), nullable=False)
     image_url = db.Column(db.Text, nullable=True)
     description = db.Column(db.Text, nullable=True)
     
@@ -54,7 +54,6 @@ class CartProduct(db.Model):
     cart_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Cart.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Product.id'))
     quantity = db.Column(db.Integer, nullable=False)
-
     product = db.relationship('Product', backref='cart_products')
 
 class Order(db.Model):
@@ -65,6 +64,7 @@ class Order(db.Model):
     items = db.relationship('OrderProduct', backref='Order', lazy=True)
     delivery_address = db.Column(db.String(200), nullable=False)
     delivery_time = db.Column(db.DateTime, nullable=False)
+    is_confirmed = db.Column(db.Boolean, default=False)
 
 class OrderProduct(db.Model):
     __tablename__ = 'Order_product'
@@ -73,4 +73,3 @@ class OrderProduct(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Order.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('FlaskSite.Product.id'))
     quantity = db.Column(db.Integer, nullable=False)
-

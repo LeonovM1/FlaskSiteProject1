@@ -26,22 +26,44 @@
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
                 {% with messages = get_flashed_messages(with_categories=True) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}" style="margin-top: 10px;">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" style="margin-top: 10px;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
                 {% endwith %}
             </div>
         </div>
+        {% if user.is_admin %}
+        <a href="{{ url_for('admin.index') }}">Админ-панель</a>
+        {% endif %}
     </div>
     <div class="col-md-6">
         <div class="card mb-3 mt-3">
             <div class="card-body">
                 <h2 class="card-title">История заказов</h2>
                 <!-- Здесь размещается история заказов -->
+                {% for order in orders %}
+                <div class="order">
+                    <h3>Заказ №{{ order.id }}</h3>
+                    {% if order.is_confirmed %}
+                        <span class="badge badge-success">Заказ подтвержден</span>
+                    {% endif %}
+                    <p>Адрес доставки: {{ order.delivery_address }}</p>
+                    <p>Время доставки: {{ order.delivery_time }}</p>
+                    <h4>Продукты в заказе:</h4>
+                    <ul>
+                        {% for item in order.items %}
+                        <li>{{ item.product.name }} - {{ item.quantity }} шт.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if not loop.last %}
+                <hr>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -29,11 +29,19 @@
         <td>{{ ns.total|round(2) }} руб.</td>
     </tr>
 </table>
-<div class="text-right">
-    <form action="{{ url_for('clear_cart') }}" method="post">
-        <button type="submit" class="btn btn-outline-primary">Очистить корзину</button>
-    </form>
+<div class="row d-flex justify-content-between">
+    <div>
+        <form action="{{ url_for('checkout') }}" method="post">
+            <button type="submit" class="btn btn-primary">Заказать</button>
+        </form>
+    </div>
+    <div>
+        <form action="{{ url_for('clear_cart') }}" method="post">
+            <button type="submit" class="btn btn-outline-primary">Очистить корзину</button>
+        </form>
+    </div>
 </div>
+
 {% else %}
 <div class="d-flex align-items-center justify-content-center" style="height: 50vh;">
     <h4>Сейчас корзина пуста, добавьте в нее товары.</h4>

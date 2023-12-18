@@ -1,12 +1,16 @@
 import base64
-from flask import Flask, render_template, url_for, flash, redirect, send_file, request, g, jsonify, make_response
+from flask import Flask, render_template, url_for, flash, redirect, send_file, request, g, jsonify, make_response, abort
 from flask_migrate import Migrate
-from forms import RegistrationForm, LoginForm, UpdateUserForm
+from forms import RegistrationForm, LoginForm, UpdateUserForm, CheckoutForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Category, Product, CartProduct, Cart
+from models import db, User, Category, Product, CartProduct, Cart, ShippingAddress, OrderProduct, Order
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 import io
 import requests
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+from flask_admin.form import FileUploadField
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -126,6 +130,12 @@ def account():
     user = current_user
     form = UpdateUserForm(obj=user)
 
+    orders = Order.query.filter_by(user_id=current_user.id).all()
+    for order in orders:
+        order.items = OrderProduct.query.filter_by(order_id=order.id).all()
+        for item in order.items:
+            item.product = Product.query.get(item.product_id)
+
     if request.method == 'POST':
         if form.validate():
             if form.password.data:
@@ -144,7 +154,7 @@ def account():
             flash('Пароли не совпадают', 'danger')
 
     orders = user.orders
-    return render_template('account.html', user=user, form=form)
+    return render_template('account.html', title='Account', user=user, form=form, orders=orders)
 
 
 def get_product_by_id(id):
@@ -198,8 +208,10 @@ def cart():
     return render_template('cart.html', cart_items=cart_items)
 
 
-@app.route('/clear_cart', methods=['POST'])
+@app.route('/clear_cart', methods=['GET','POST'])
 def clear_cart():
+    if request.method == 'GET':
+        return redirect(url_for('cart'))
     if not current_user.is_authenticated:
         response = jsonify({'message': 'Вы должны войти в систему, чтобы добавить товар в корзину.'})
         response.status_code = 401
@@ -209,6 +221,80 @@ def clear_cart():
         CartProduct.query.filter_by(cart_id=cart.id).delete()
         db.session.commit()
     return redirect(url_for('cart'))
+
+
+@app.route('/checkout', methods=['GET','POST'])
+@login_required
+def checkout():
+    formdata = request.form if request.method == 'POST' else None
+    form = CheckoutForm(formdata)
+    if form.validate_on_submit():
+        delivery_address = form.new_address.data  # всегда берем адрес из формы
+        order = Order(user_id=current_user.id, delivery_address=delivery_address, delivery_time=form.delivery_time.data)
+        db.session.add(order)
+        db.session.commit()
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        if cart:
+            cart_products = CartProduct.query.filter_by(cart_id=cart.id).all()
+            for item in cart_products:
+                order_product = OrderProduct(product_id=item.product_id, quantity=item.quantity, order_id=order.id)  # используем id заказа
+                db.session.add(order_product)
+                db.session.delete(item)
+            db.session.commit()
+        #flash('Ваш заказ успешно оформлен!', 'success',)
+
+        # очистка корзины
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        if cart:
+            CartProduct.query.filter_by(cart_id=cart.id).delete()
+            db.session.commit()
+
+        # Проверка, что заказ был создан
+        order = Order.query.filter_by(user_id=current_user.id).order_by(Order.id.desc()).first()
+        if order:
+            print(f'Заказ {order.id} был успешно создан для пользователя {current_user.id}')
+        else:
+            print('Заказ не был создан')
+            # Возможно, вам стоит добавить здесь обработку ошибки
+
+        return redirect(url_for('account'), code=302)
+    else:
+        flash("Ошибка в поле Новый адрес: Введите корректный адрес", 'danger')
+        flash("Ошибка в поле Желаемое время доставки: Укажите корректную дату, как в шаблоне", 'danger')
+    return render_template('checkout.html', title='Оформление заказа', form=form)
+
+
+class MyAdminIndexView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('index', next=request.url))
+    
+admin = Admin(app, name='ElectroShop', template_mode='bootstrap3', index_view=MyAdminIndexView())
+
+class OrderModelView(ModelView):
+    column_labels = {
+        'Is_confirmed': 'Подтверждение'
+    }
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
+
+admin.add_view(OrderModelView(Order, db.session))
+
+class ProductModelView(ModelView):
+    form_overrides = {
+        'image_url': FileUploadField
+    }
+
+    def on_model_change(self, form, model, is_created):
+        if form.image_url.data:
+            image_data = form.image_url.data.read()
+            model.image_url = base64.b64encode(image_data).decode('utf-8')
+        return super().on_model_change(form, model, is_created)
+    
+admin.add_view(ProductModelView(Product, db.session))
+
 
 """
 

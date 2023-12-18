@@ -1,8 +1,9 @@
 # forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, SelectField, DateTimeField
+from wtforms.validators import DataRequired, EqualTo, Length, InputRequired, Regexp
+from datetime import datetime
 
 
 class RegistrationForm(FlaskForm):
@@ -22,3 +23,20 @@ class UpdateUserForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     confirm_password = PasswordField('Подтвердите пароль', validators=[DataRequired(), EqualTo('password', message='Пароли должны совпадать')])
     submit = SubmitField('Update')
+
+class FutureDateTime:
+    def __init__(self, message=None):
+        if not message:
+            message = 'Дата и время должны быть в будущем'
+        self.message = message
+
+    def __call__(self, form, field):
+        if field.data is None or field.data < datetime.now():
+            raise ValidationError(self.message)
+
+class CheckoutForm(FlaskForm):
+    class Meta:
+        csrf = False
+    new_address = StringField('Новый адрес', validators=[DataRequired()])
+    delivery_time = DateTimeField('Желаемое время доставки', validators=[DataRequired(), FutureDateTime()], format='%Y-%m-%d %H:%M:%S')
+    submit = SubmitField('Оформить заказ')
