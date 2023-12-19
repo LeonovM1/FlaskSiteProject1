@@ -24,14 +24,15 @@ class UpdateUserForm(FlaskForm):
     confirm_password = PasswordField('Подтвердите пароль', validators=[DataRequired(), EqualTo('password', message='Пароли должны совпадать')])
     submit = SubmitField('Update')
 
-class FutureDateTime:
+
+class FutureDateTime(InputRequired):
     def __init__(self, message=None):
         if not message:
             message = 'Дата и время должны быть в будущем'
-        self.message = message
+        super().__init__(message=message)
 
     def __call__(self, form, field):
-        if field.data is None or field.data < datetime.now():
+        if field.data and field.data < datetime.now():
             raise ValidationError(self.message)
 
 class CheckoutForm(FlaskForm):
