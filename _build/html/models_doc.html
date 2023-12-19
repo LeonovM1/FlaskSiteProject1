@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Документация для forms.py &#8212; документация ElectroShop_Flask 1.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=9ca2116e"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=29b1f277"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Документация для forms.py" href="forms_doc.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="forms-py">
+<h1>Документация для forms.py<a class="headerlink" href="#forms-py" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.User" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>User - модель пользователя, которая содержит поля для идентификатора,</p></li>
+</ul>
+<p>имени пользователя, пароля и статуса администратора.
+Она также имеет отношения к моделям Cart и Order.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.ShippingAddress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">ShippingAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.ShippingAddress" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>ShippingAddress - модель адреса доставки,</p></li>
+</ul>
+<p>которая содержит поля для идентификатора, идентификатора пользователя и адреса.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Category">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Category" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Category - модель категории, которая содержит поля для идентификатора и имени.</p></li>
+</ul>
+<p>Она также имеет отношение к модели Product.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Product">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Product" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Product - модель продукта, которая содержит поля для идентификатора,</p></li>
+</ul>
+<p>имени, цены, идентификатора категории, URL изображения и описания.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Cart">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Cart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Cart" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Cart - модель корзины, которая содержит поля для идентификатора и идентификатора пользователя.</p></li>
+</ul>
+<p>Она также имеет отношение к модели CartProduct.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.CartProduct">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">CartProduct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.CartProduct" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>CartProduct - модель продукта в корзине, которая содержит поля для идентификатора,</p></li>
+</ul>
+<p>идентификатора корзины, идентификатора продукта и количества. Она также имеет отношение к модели Product.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Order">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Order" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>Order - модель заказа, которая содержит поля для идентификатора,</p></li>
+</ul>
+<p>идентификатора пользователя, адреса доставки, времени доставки и подтверждения.
+Она также имеет отношение к модели OrderProduct.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.OrderProduct">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">OrderProduct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.OrderProduct" title="Link to this definition">¶</a></dt>
+<dd><ul class="simple">
+<li><p>OrderProduct - модель продукта в заказе, которая содержит поля для идентификатора,</p></li>
+</ul>
+<p>идентификатора заказа, идентификатора продукта и количества.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ElectroShop_Flask</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="app_doc.html">Документация для app.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms_doc.html">Документация для forms.py</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Документация для forms.py</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#models.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.ShippingAddress"><code class="docutils literal notranslate"><span class="pre">ShippingAddress</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.Category"><code class="docutils literal notranslate"><span class="pre">Category</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.Product"><code class="docutils literal notranslate"><span class="pre">Product</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.Cart"><code class="docutils literal notranslate"><span class="pre">Cart</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.CartProduct"><code class="docutils literal notranslate"><span class="pre">CartProduct</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.Order"><code class="docutils literal notranslate"><span class="pre">Order</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#models.OrderProduct"><code class="docutils literal notranslate"><span class="pre">OrderProduct</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="forms_doc.html" title="предыдущая глава">Документация для forms.py</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Michail Leonov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/models_doc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

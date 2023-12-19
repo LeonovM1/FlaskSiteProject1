@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; документация ElectroShop_Flask 1.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=9ca2116e"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=29b1f277"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Welcome to ElectroShop_Flask’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <blockquote>
+<div><dl class="py class" id="module-app">
+<dt class="sig sig-object py" id="app.MyAdminIndexView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">MyAdminIndexView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'admin/index.html'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.MyAdminIndexView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="app.MyAdminIndexView.inaccessible_callback">
+<span class="sig-name descname"><span class="pre">inaccessible_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.MyAdminIndexView.inaccessible_callback" title="Link to this definition">¶</a></dt>
+<dd><p>Handle the response to inaccessible views.</p>
+<p>By default, it throw HTTP 403 error. Override this method to
+customize the behaviour.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.MyAdminIndexView.is_accessible">
+<span class="sig-name descname"><span class="pre">is_accessible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.MyAdminIndexView.is_accessible" title="Link to this definition">¶</a></dt>
+<dd><p>Override this method to add permission checks.</p>
+<p>Flask-Admin does not make any assumptions about the authentication system used in your application, so it is
+up to you to implement it.</p>
+<p>By default, it will allow access for everyone.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.OrderModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">OrderModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.action_view">
+<span class="sig-name descname"><span class="pre">action_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.action_view" title="Link to this definition">¶</a></dt>
+<dd><p>Mass-model action view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.ajax_update">
+<span class="sig-name descname"><span class="pre">ajax_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.ajax_update" title="Link to this definition">¶</a></dt>
+<dd><p>Edits a single column of a record in list view.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.OrderModelView.column_labels">
+<span class="sig-name descname"><span class="pre">column_labels</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Is_confirmed':</span> <span class="pre">'Подтверждение'}</span></em><a class="headerlink" href="#app.OrderModelView.column_labels" title="Link to this definition">¶</a></dt>
+<dd><p>Dictionary where key is column name and value is string to display.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModelView</span><span class="p">(</span><span class="n">BaseModelView</span><span class="p">):</span>
+    <span class="n">column_labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="s1">&#39;Last Name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.create_view">
+<span class="sig-name descname"><span class="pre">create_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.create_view" title="Link to this definition">¶</a></dt>
+<dd><p>Create model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.delete_view">
+<span class="sig-name descname"><span class="pre">delete_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.delete_view" title="Link to this definition">¶</a></dt>
+<dd><p>Delete model view. Only POST method is allowed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.details_view">
+<span class="sig-name descname"><span class="pre">details_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.details_view" title="Link to this definition">¶</a></dt>
+<dd><p>Details model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.edit_view">
+<span class="sig-name descname"><span class="pre">edit_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.edit_view" title="Link to this definition">¶</a></dt>
+<dd><p>Edit model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.index_view">
+<span class="sig-name descname"><span class="pre">index_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.index_view" title="Link to this definition">¶</a></dt>
+<dd><p>List view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.OrderModelView.is_accessible">
+<span class="sig-name descname"><span class="pre">is_accessible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView.is_accessible" title="Link to this definition">¶</a></dt>
+<dd><p>Override this method to add permission checks.</p>
+<p>Flask-Admin does not make any assumptions about the authentication system used in your application, so it is
+up to you to implement it.</p>
+<p>By default, it will allow access for everyone.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.ProductModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">ProductModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.action_view">
+<span class="sig-name descname"><span class="pre">action_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.action_view" title="Link to this definition">¶</a></dt>
+<dd><p>Mass-model action view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.ajax_update">
+<span class="sig-name descname"><span class="pre">ajax_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.ajax_update" title="Link to this definition">¶</a></dt>
+<dd><p>Edits a single column of a record in list view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.create_view">
+<span class="sig-name descname"><span class="pre">create_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.create_view" title="Link to this definition">¶</a></dt>
+<dd><p>Create model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.delete_view">
+<span class="sig-name descname"><span class="pre">delete_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.delete_view" title="Link to this definition">¶</a></dt>
+<dd><p>Delete model view. Only POST method is allowed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.details_view">
+<span class="sig-name descname"><span class="pre">details_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.details_view" title="Link to this definition">¶</a></dt>
+<dd><p>Details model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.edit_view">
+<span class="sig-name descname"><span class="pre">edit_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.edit_view" title="Link to this definition">¶</a></dt>
+<dd><p>Edit model view</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.ProductModelView.form_overrides">
+<span class="sig-name descname"><span class="pre">form_overrides</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'image_url':</span> <span class="pre">&lt;class</span> <span class="pre">'flask_admin.form.upload.FileUploadField'&gt;}</span></em><a class="headerlink" href="#app.ProductModelView.form_overrides" title="Link to this definition">¶</a></dt>
+<dd><p>Dictionary of form column overrides.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModelView</span><span class="p">(</span><span class="n">BaseModelView</span><span class="p">):</span>
+    <span class="n">form_overrides</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">wtf</span><span class="o">.</span><span class="n">FileField</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.index_view">
+<span class="sig-name descname"><span class="pre">index_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.index_view" title="Link to this definition">¶</a></dt>
+<dd><p>List view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.ProductModelView.on_model_change">
+<span class="sig-name descname"><span class="pre">on_model_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_created</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView.on_model_change" title="Link to this definition">¶</a></dt>
+<dd><p>Perform some actions before a model is created or updated.</p>
+<p>Called from create_model and update_model in the same transaction
+(if it has any meaning for a store backend).</p>
+<p>By default does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>form</strong> – Form used to create/update model</p></li>
+<li><p><strong>model</strong> – Model that will be created/updated</p></li>
+<li><p><strong>is_created</strong> – Will be set to True if model was created and to False if edited</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.UserModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">UserModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.action_view">
+<span class="sig-name descname"><span class="pre">action_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.action_view" title="Link to this definition">¶</a></dt>
+<dd><p>Mass-model action view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.ajax_update">
+<span class="sig-name descname"><span class="pre">ajax_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.ajax_update" title="Link to this definition">¶</a></dt>
+<dd><p>Edits a single column of a record in list view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.create_view">
+<span class="sig-name descname"><span class="pre">create_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.create_view" title="Link to this definition">¶</a></dt>
+<dd><p>Create model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.delete_view">
+<span class="sig-name descname"><span class="pre">delete_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.delete_view" title="Link to this definition">¶</a></dt>
+<dd><p>Delete model view. Only POST method is allowed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.details_view">
+<span class="sig-name descname"><span class="pre">details_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.details_view" title="Link to this definition">¶</a></dt>
+<dd><p>Details model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.edit_view">
+<span class="sig-name descname"><span class="pre">edit_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.edit_view" title="Link to this definition">¶</a></dt>
+<dd><p>Edit model view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.index_view">
+<span class="sig-name descname"><span class="pre">index_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.index_view" title="Link to this definition">¶</a></dt>
+<dd><p>List view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.UserModelView.is_accessible">
+<span class="sig-name descname"><span class="pre">is_accessible</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView.is_accessible" title="Link to this definition">¶</a></dt>
+<dd><p>Override this method to add permission checks.</p>
+<p>Flask-Admin does not make any assumptions about the authentication system used in your application, so it is
+up to you to implement it.</p>
+<p>By default, it will allow access for everyone.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div></blockquote>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ElectroShop_Flask</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">MyAdminIndexView</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app.MyAdminIndexView.inaccessible_callback"><code class="docutils literal notranslate"><span class="pre">MyAdminIndexView.inaccessible_callback()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.MyAdminIndexView.is_accessible"><code class="docutils literal notranslate"><span class="pre">MyAdminIndexView.is_accessible()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#app.OrderModelView"><code class="docutils literal notranslate"><span class="pre">OrderModelView</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.action_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.action_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.ajax_update"><code class="docutils literal notranslate"><span class="pre">OrderModelView.ajax_update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.column_labels"><code class="docutils literal notranslate"><span class="pre">OrderModelView.column_labels</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.create_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.create_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.delete_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.delete_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.details_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.details_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.edit_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.edit_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.index_view"><code class="docutils literal notranslate"><span class="pre">OrderModelView.index_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView.is_accessible"><code class="docutils literal notranslate"><span class="pre">OrderModelView.is_accessible()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#app.ProductModelView"><code class="docutils literal notranslate"><span class="pre">ProductModelView</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.action_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.action_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.ajax_update"><code class="docutils literal notranslate"><span class="pre">ProductModelView.ajax_update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.create_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.create_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.delete_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.delete_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.details_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.details_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.edit_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.edit_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.form_overrides"><code class="docutils literal notranslate"><span class="pre">ProductModelView.form_overrides</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.index_view"><code class="docutils literal notranslate"><span class="pre">ProductModelView.index_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView.on_model_change"><code class="docutils literal notranslate"><span class="pre">ProductModelView.on_model_change()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#app.UserModelView"><code class="docutils literal notranslate"><span class="pre">UserModelView</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.action_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.action_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.ajax_update"><code class="docutils literal notranslate"><span class="pre">UserModelView.ajax_update()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.create_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.create_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.delete_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.delete_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.details_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.details_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.edit_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.edit_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.index_view"><code class="docutils literal notranslate"><span class="pre">UserModelView.index_view()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView.is_accessible"><code class="docutils literal notranslate"><span class="pre">UserModelView.is_accessible()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="предыдущая глава">Welcome to ElectroShop_Flask’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Michail Leonov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/instructions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

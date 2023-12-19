@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Документация для app.py &#8212; документация ElectroShop_Flask 1.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=9ca2116e"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=29b1f277"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Документация для forms.py" href="forms_doc.html" />
+    <link rel="prev" title="Welcome to ElectroShop_Flask’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="app-py">
+<h1>Документация для app.py<a class="headerlink" href="#app-py" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.index">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.index" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает главную страницу («/») приложения. 
+Она получает все продукты из базы данных, создает список словарей products_with_categories, 
+где каждый словарь содержит информацию о продукте (имя, цена, категория, URL изображения, описание, идентификатор). 
+Затем эта функция возвращает HTML-шаблон „index.html“, передавая в него список продуктов и текущего пользователя.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.register">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.register" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция используется Flask-Login для загрузки пользователя из базы данных. 
+Она принимает user_id в качестве аргумента, 
+преобразует его в целое число и выполняет запрос к базе данных для получения пользователя с этим идентификатором. 
+Если пользователь с таким идентификатором существует, он возвращается функцией. 
+Если такого пользователя нет, функция возвращает None.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.login">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.login" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает вход пользователя в систему. 
+Она сначала проверяет, есть ли сообщение в cookies. 
+Если есть, она декодирует сообщение и выводит его. 
+Затем функция создает форму входа. 
+Если форма успешно прошла валидацию при отправке, функция ищет пользователя с введенным именем пользователя. 
+Если пользователь существует и введенный пароль совпадает с хэшированным паролем пользователя, 
+функция входит в систему как этот пользователь и перенаправляет на главную страницу, удаляя сообщение из cookies. 
+Если пользователь не найден или пароль не совпадает, функция выводит сообщение об ошибке. 
+Если форма не была отправлена или не прошла валидацию, функция возвращает шаблон „login.html“ с формой входа.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.account">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">account</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.account" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает страницу аккаунта пользователя.
+Она требует авторизации пользователя.
+Функция получает текущего пользователя и форму обновления информации пользователя.
+Затем она получает все заказы текущего пользователя и для каждого заказа получает все связанные с ним продукты.</p>
+<p>Если метод запроса - POST и форма прошла валидацию, функция проверяет, был ли введен новый пароль.
+Если пароль был введен и он совпадает с подтверждением пароля,
+функция обновляет имя пользователя и пароль в базе данных,
+а затем выводит сообщение об успешном обновлении информации об аккаунте.
+Если пароли не совпадают, функция выводит сообщение об ошибке.</p>
+<p>Если пароль не был введен, функция просто обновляет имя пользователя и выводит сообщение об успешном обновлении имени пользователя.</p>
+<p>Наконец, функция возвращает шаблон „account.html“, передавая в него текущего пользователя, форму и заказы.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.get_product_image">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">get_product_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.get_product_image" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает запрос на получение изображения продукта.
+Она принимает идентификатор продукта из параметров запроса,
+затем использует этот идентификатор для получения продукта из базы данных.
+Если продукт существует и у него есть URL изображения,
+функция декодирует данные изображения из base64 и возвращает их как файл.
+Если продукт не существует или у него нет URL изображения,
+функция возвращает сообщение об ошибке «Изображение не найдено»</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.add_to_cart">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">add_to_cart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.add_to_cart" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает добавление продукта в корзину.
+Она принимает идентификатор продукта в качестве параметра маршрута.
+Если пользователь не авторизован, функция возвращает JSON-ответ с сообщением об ошибке и статусом 401.
+Если пользователь авторизован, функция ищет продукт по идентификатору и корзину текущего пользователя.
+Если корзины не существует, она создает новую. Затем функция ищет продукт в корзине.
+Если продукт уже есть в корзине, она увеличивает его количество на 1.
+Если продукта нет в корзине, она добавляет новый элемент в корзину с количеством 1.
+После этого функция сохраняет изменения в базе данных и перенаправляет пользователя на страницу корзины.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.cart">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">cart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.cart" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает страницу корзины пользователя.
+Она требует авторизации пользователя. Функция получает корзину текущего пользователя.
+Если корзина существует, она получает все товары в корзине.
+Если корзины не существует, она создает пустой список товаров.
+Наконец, функция возвращает шаблон „cart.html“, передавая в него список товаров в корзине.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.clear_cart">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">clear_cart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.clear_cart" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает очистку корзины пользователя.
+Если метод запроса - GET, функция просто перенаправляет пользователя обратно на страницу корзины.
+Если пользователь не авторизован, функция возвращает JSON-ответ с сообщением об ошибке и статусом 401.
+Если пользователь авторизован, функция ищет корзину текущего пользователя.
+Если корзина существует, функция удаляет все товары из корзины,
+сохраняет изменения в базе данных и перенаправляет пользователя обратно на страницу корзины.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.validate_date">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">validate_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.validate_date" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция проверяет, соответствует ли введенная дата формату „YYYY-MM-DD HH:MM:SS“.
+Она принимает строку с датой и временем, проверяет ее с помощью регулярного выражения,
+а затем пытается преобразовать ее в объект datetime.
+Если строка не соответствует формату или не может быть преобразована в datetime,
+функция вызывает исключение ValueError с сообщением „Неверный формат даты“.
+Если все проверки прошли успешно, функция возвращает True.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.checkout">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">checkout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.checkout" title="Link to this definition">¶</a></dt>
+<dd><p>Эта функция обрабатывает процесс оформления заказа.
+Она требует авторизации пользователя и использует форму CheckoutForm.
+Если форма успешно прошла валидацию при отправке, функция получает время доставки и адрес доставки из формы.</p>
+<p>Если время доставки или адрес доставки не указаны, функция выводит сообщение об ошибке.
+В противном случае, функция проверяет, соответствует ли время доставки формату „YYYY-MM-DD HH:MM:SS’с помощью функции validate_date.
+Если время доставки не соответствует этому формату,
+функция выводит сообщение об ошибке и возвращает шаблон „checkout.html“.</p>
+<p>Если все проверки прошли успешно,
+функция создает новый заказ с указанным временем доставки и адресом доставки,
+и сохраняет его в базе данных. Затем функция получает корзину текущего пользователя и переносит все товары из корзины в заказ.
+После этого функция удаляет все товары из корзины и сохраняет изменения в базе данных.</p>
+<p>Наконец, функция выводит сообщение об успешном оформлении заказа и перенаправляет пользователя на страницу аккаунта.
+Если форма не была отправлена или не прошла валидацию, функция возвращает шаблон „checkout.html“.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.UserModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">UserModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.UserModelView" title="Link to this definition">¶</a></dt>
+<dd><p>UserModelView- это пользовательский класс, 
+который наследуется от ModelView и переопределяет метод is_accessible таким же образом, как и MyAdminIndexView.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.OrderModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">OrderModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.OrderModelView" title="Link to this definition">¶</a></dt>
+<dd><p>OrderModelView также определяет пользовательские метки для столбцов в представлении модели.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.ProductModelView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">ProductModelView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_class_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_icon_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.ProductModelView" title="Link to this definition">¶</a></dt>
+<dd><p>ProductModelView переопределяет форму для поля image_url, используя FileUploadField, 
+и определяет метод on_model_change, который кодирует изображение в base64 при его загрузке.</p>
+<p>В конце каждый из этих представлений модели добавляется в административный интерфейс с помощью метода add_view.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ElectroShop_Flask</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Документация для app.py</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#app.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.account"><code class="docutils literal notranslate"><span class="pre">account()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.get_product_image"><code class="docutils literal notranslate"><span class="pre">get_product_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.add_to_cart"><code class="docutils literal notranslate"><span class="pre">add_to_cart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.cart"><code class="docutils literal notranslate"><span class="pre">cart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.clear_cart"><code class="docutils literal notranslate"><span class="pre">clear_cart()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.validate_date"><code class="docutils literal notranslate"><span class="pre">validate_date()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.checkout"><code class="docutils literal notranslate"><span class="pre">checkout()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.UserModelView"><code class="docutils literal notranslate"><span class="pre">UserModelView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.OrderModelView"><code class="docutils literal notranslate"><span class="pre">OrderModelView</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app.ProductModelView"><code class="docutils literal notranslate"><span class="pre">ProductModelView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms_doc.html">Документация для forms.py</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="предыдущая глава">Welcome to ElectroShop_Flask’s documentation!</a></li>
+      <li>Next: <a href="forms_doc.html" title="следующая глава">Документация для forms.py</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Michail Leonov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/app_doc.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
